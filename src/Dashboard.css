@@ -12,6 +12,7 @@
   text-align: center;
   background-color: #dcdcdc;
   padding: 30px;
+  max-width: 480px;
 }
 
 .dashboard__btn {
@@ -25,4 +26,8 @@
 
 .dashboard div {
   margin-top: 7px;
+}
+
+.dashboard__container p {
+  max-width: 480px;
 }

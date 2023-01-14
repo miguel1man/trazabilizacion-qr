@@ -30,7 +30,7 @@ function Dashboard() {
     if (!user) return navigate("/");
 
     fetchUserName();
-  }, [user, loading]);
+  }, [user, loading, fetchUserName, navigate]);
 
   return (
     <div className="dashboard">

@@ -1,48 +1,70 @@
-<h1 align="center"> Fidelízame </h1>
+# Getting Started with Create React App
 
-<p align="center"><i>La app para fidelizar a tus clientes.</i></p>
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-<p align="center">
-<img src="https://img.shields.io/badge/next-13.0.0-green">
-<img src="https://img.shields.io/badge/react-18.2.0-blue">
-<img src="https://img.shields.io/badge/ethers-5.7.2-blueviolet">
-<img src="https://img.shields.io/badge/truffle-5.6.3-orange">
-</p>
+## Available Scripts
 
-<div align="center">
+In the project directory, you can run:
 
-![fide1](https://user-images.githubusercontent.com/78570710/198815892-a5f45840-5218-4041-ade5-ebea97972f13.jpg)
+### `npm start`
 
-![fide2](https://user-images.githubusercontent.com/78570710/198815896-0360c738-5e01-4187-a6cd-314d222357f7.jpg)
-  
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-</div>
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-## Problema a resolver
+### `npm test`
 
-Las empresas de canal masivo necesitan la trazabilidad de sus clientes recurrentes y tokenizar sus hábitos de consumo. Todo esta data es necesaria para tomar mejores decisiones de negocio e incrementar la rentabilidad.
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## Finalidad del proyecto
+### `npm run build`
 
-Lograr que medianas empresas (y sus clientes) adopten billeteras cripto. Al inicio las utilizarán para acumular puntos, pero las billeteras también pueden interactuar con NFTs y otras criptomonedas. Los usuario ya utilizan "millas imaginarias" para canjear viajes reales ¿Por qué no acumular "puntos cripto"?
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## Instrucciones 
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## Smart Contract (Token)
+### `npm run eject`
 
-- https://testnet.bscscan.com/token/0xb1ca652634fe9f0083b080f1276ad6fce81cd325
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-## Smart Contract (Remix-Fidelizame)
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-![1](https://user-images.githubusercontent.com/111502643/198817329-a32c45ec-e17a-4bde-9c6f-20aca45118ce.png)
-![2](https://user-images.githubusercontent.com/111502643/198817340-88156ca2-9ce6-4e28-af0d-af3e4c046c27.png)
-![3](https://user-images.githubusercontent.com/111502643/198817352-22e27b2a-6ba5-49cc-98a7-d21d0f317af3.png)
-![4](https://user-images.githubusercontent.com/111502643/198817360-7c3c069e-19fa-441d-a206-358407d1787f.png)
-![5](https://user-images.githubusercontent.com/111502643/198817367-ca53f1b1-764f-4aa9-a165-ca13fca08a01.png)
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

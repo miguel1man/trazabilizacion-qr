@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
@@ -8,11 +8,11 @@ import { QrReader } from 'react-qr-reader';
 
 function Dashboard() {
   const [data, setData] = useState('No result');
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const [name, setName] = useState("");
   const navigate = useNavigate();
 
-  const fetchUserName = async () => {
+  const fetchUserName = useCallback(async () => {
     try {
       const q = query(collection(db, "users"), where("uid", "==", user?.uid));
       const doc = await getDocs(q);
@@ -23,7 +23,7 @@ function Dashboard() {
       console.error(err);
       alert("An error occured while fetching user data");
     }
-  };
+  }, [user]);
 
   useEffect(() => {
     if (loading) return;
@@ -39,7 +39,7 @@ function Dashboard() {
         <div>{name}</div>
         <div>{user?.email}</div>
         <button className="dashboard__btn" onClick={logout}>
-          Logout
+          Logout2
         </button>
         <QrReader
           onResult={(result, error) => {

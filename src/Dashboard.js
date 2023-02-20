@@ -13,6 +13,22 @@ function Dashboard() {
   const [name, setName] = useState("");
   const navigate = useNavigate();
 
+  const readRegisteredCodes = async () => {
+    try {
+      const scannedCodesRef = collection(db, "scannedCodes");
+      const snapshot = await getDocs(scannedCodesRef);
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        if (data.registeredCode === scannedData) {
+          console.log(`Found registered code with timestamp: ${data.timestamp}`);
+        }
+      });
+    } catch (err) {
+      console.error(err);
+      alert("An error occurred while reading registered codes from the database.");
+    }
+  };
+
   const fetchUserName = useCallback(async () => {
     try {
       const q = query(collection(db, "users"), where("uid", "==", user?.uid));
@@ -31,6 +47,7 @@ function Dashboard() {
     if (!user) return navigate("/");
 
     fetchUserName();
+    readRegisteredCodes();
   }, [user, loading, fetchUserName, navigate]);
 
   const handleScan = async (code) => {
@@ -38,7 +55,7 @@ function Dashboard() {
       const newCodeRef = collection(db, "scannedCodes");
       const codeData = {
         userUid: user?.uid,
-        code: code,
+        registeredCode: code,
         timestamp: new Date()
       }
       await addDoc(newCodeRef, codeData);

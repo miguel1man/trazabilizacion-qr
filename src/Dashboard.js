@@ -8,6 +8,7 @@ import { QrReader } from 'react-qr-reader';
 
 function Dashboard() {
   const [scannedData, setScannedData] = useState('No result');
+  const [shouldStopScanner, setShouldStopScanner] = useState(false);
   const [user, loading] = useAuthState(auth);
   const [name, setName] = useState("");
   const navigate = useNavigate();
@@ -41,7 +42,8 @@ function Dashboard() {
         timestamp: new Date()
       }
       await addDoc(newCodeRef, codeData);
-      console.log(scannedData);
+      setScannedData(scannedData);
+      setShouldStopScanner(true);
     } catch (err) {
       console.error(err);
       alert("An error occurred while adding the scanned code to the database.");
@@ -57,19 +59,21 @@ function Dashboard() {
         <button className="dashboard__btn" onClick={logout}>
           Logout
         </button>
-        <QrReader
-          onResult={(result, error) => {
-            if (!!result) {
-              setScannedData(result?.text);
-              handleScan();
-            }
+        {!shouldStopScanner && (
+          <QrReader
+            onResult={(result, error) => {
+              if (!!result) {
+                setScannedData(result?.text);
+                handleScan();
+              }
 
-            if (!!error) {
-              console.info(error);
-            }
-          }}
-          style={{ width: '100%' }}
-        />
+              if (!!error) {
+                console.info(error);
+              }
+            }}
+            style={{ width: '100%' }}
+          />
+        )}
         <p>{scannedData}</p>
       </div>
     </div>

@@ -7,7 +7,7 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 import { QrReader } from 'react-qr-reader';
 
 function Dashboard() {
-  const [data, setData] = useState('No result');
+  const [scannedData, setScannedData] = useState('No result');
   const [user, loading] = useAuthState(auth);
   const [name, setName] = useState("");
   const navigate = useNavigate();
@@ -39,12 +39,12 @@ function Dashboard() {
         <div>{name}</div>
         <div>{user?.email}</div>
         <button className="dashboard__btn" onClick={logout}>
-          Logout2
+          Logout
         </button>
         <QrReader
           onResult={(result, error) => {
             if (!!result) {
-              setData(result?.text);
+              setScannedData(result?.text);
             }
 
             if (!!error) {
@@ -53,7 +53,7 @@ function Dashboard() {
           }}
           style={{ width: '100%' }}
         />
-        <p>{data}</p>
+        <p>{scannedData}</p>
       </div>
     </div>
   );

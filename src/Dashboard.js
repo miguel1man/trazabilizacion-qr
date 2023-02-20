@@ -33,16 +33,15 @@ function Dashboard() {
     fetchUserName();
   }, [user, loading, fetchUserName, navigate]);
 
-  const handleScan = async () => {
+  const handleScan = async (code) => {
     try {
       const newCodeRef = collection(db, "scannedCodes");
       const codeData = {
         userUid: user?.uid,
-        code: scannedData,
+        code: code,
         timestamp: new Date()
       }
       await addDoc(newCodeRef, codeData);
-      setScannedData(scannedData);
       setShouldStopScanner(true);
     } catch (err) {
       console.error(err);
@@ -64,7 +63,7 @@ function Dashboard() {
             onResult={(result, error) => {
               if (!!result) {
                 setScannedData(result?.text);
-                handleScan();
+                handleScan(result?.text);
               }
 
               if (!!error) {

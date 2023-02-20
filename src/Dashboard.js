@@ -3,7 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 import { auth, db, logout } from "./firebase";
-import { query, collection, getDocs, where } from "firebase/firestore";
+import { query, collection, getDocs, where, addDoc } from "firebase/firestore";
 import { QrReader } from 'react-qr-reader';
 
 function Dashboard() {
@@ -32,6 +32,22 @@ function Dashboard() {
     fetchUserName();
   }, [user, loading, fetchUserName, navigate]);
 
+  const handleScan = async () => {
+    try {
+      const newCodeRef = collection(db, "scannedCodes");
+      const codeData = {
+        userUid: user?.uid,
+        code: scannedData,
+        timestamp: new Date()
+      }
+      await addDoc(newCodeRef, codeData);
+      console.log(scannedData);
+    } catch (err) {
+      console.error(err);
+      alert("An error occurred while adding the scanned code to the database.");
+    }
+  }
+
   return (
     <div className="dashboard">
       <div className="dashboard__container">
@@ -45,6 +61,7 @@ function Dashboard() {
           onResult={(result, error) => {
             if (!!result) {
               setScannedData(result?.text);
+              handleScan();
             }
 
             if (!!error) {

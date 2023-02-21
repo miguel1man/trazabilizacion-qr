@@ -17,12 +17,42 @@ function Dashboard() {
     try {
       const scannedCodesRef = collection(db, "scannedCodes");
       const snapshot = await getDocs(scannedCodesRef);
+  
+      const table = document.createElement("table");
+      const thead = document.createElement("thead");
+      const tbody = document.createElement("tbody");
+  
+      // Define las columnas de la tabla en thead
+      const columns = ["Registered Code", "User UID", "Timestamp"];
+      const theadRow = document.createElement("tr");
+      columns.forEach((column) => {
+        const th = document.createElement("th");
+        th.textContent = column;
+        theadRow.appendChild(th);
+      });
+      thead.appendChild(theadRow);
+      table.appendChild(thead);
+  
+      // Llena las filas de la tabla con los datos de Firestore en tbody
       snapshot.forEach((doc) => {
         const data = doc.data();
-        if (data.registeredCode === scannedData) {
-          console.log(`Found registered code with timestamp: ${data.timestamp}`);
-        }
+        const row = document.createElement("tr");
+        const registeredCodeCell = document.createElement("td");
+        registeredCodeCell.textContent = data.registeredCode;
+        const userUidCell = document.createElement("td");
+        userUidCell.textContent = data.userUid;
+        const timestampCell = document.createElement("td");
+        timestampCell.textContent = data.timestamp.toDate().toLocaleString();
+        row.appendChild(registeredCodeCell);
+        row.appendChild(userUidCell);
+        row.appendChild(timestampCell);
+        tbody.appendChild(row);
       });
+      table.appendChild(tbody);
+  
+      // Muestra la tabla en el frontend debajo de <p>{scannedData}</p>
+      const container = document.querySelector(".dashboard__container");
+      container.appendChild(table);
     } catch (err) {
       console.error(err);
       alert("An error occurred while reading registered codes from the database.");
@@ -47,7 +77,7 @@ function Dashboard() {
     if (!user) return navigate("/");
 
     fetchUserName();
-    readRegisteredCodes();
+    
   }, [user, loading, fetchUserName, navigate]);
 
   const handleScan = async (code) => {
@@ -81,6 +111,7 @@ function Dashboard() {
               if (!!result) {
                 setScannedData(result?.text);
                 handleScan(result?.text);
+                readRegisteredCodes();
               }
 
               if (!!error) {

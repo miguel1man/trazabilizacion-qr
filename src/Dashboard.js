@@ -3,7 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 import { auth, db, logout } from "./firebase";
-import { query, collection, getDocs, where, addDoc } from "firebase/firestore";
+import { query, collection, getDocs, where, addDoc, orderBy  } from "firebase/firestore";
 import { QrReader } from 'react-qr-reader';
 
 function Dashboard() {
@@ -16,14 +16,15 @@ function Dashboard() {
   const readRegisteredCodes = async () => {
     try {
       const scannedCodesRef = collection(db, "scannedCodes");
-      const snapshot = await getDocs(scannedCodesRef);
-  
+      const q = query(scannedCodesRef, orderBy("timestamp", "desc"));
+      const snapshot = await getDocs(q);
+    
       const table = document.createElement("table");
       const thead = document.createElement("thead");
       const tbody = document.createElement("tbody");
   
       // Define las columnas de la tabla en thead
-      const columns = ["Registered Code", "User UID", "Timestamp"];
+      const columns = ["Registered Code", "Timestamp"];
       const theadRow = document.createElement("tr");
       columns.forEach((column) => {
         const th = document.createElement("th");
@@ -38,13 +39,11 @@ function Dashboard() {
         const data = doc.data();
         const row = document.createElement("tr");
         const registeredCodeCell = document.createElement("td");
-        registeredCodeCell.textContent = data.registeredCode;
-        const userUidCell = document.createElement("td");
-        userUidCell.textContent = data.userUid;
+        const truncatedCode = data.registeredCode.substring(0, 20) + '...';
+        registeredCodeCell.textContent = truncatedCode;
         const timestampCell = document.createElement("td");
         timestampCell.textContent = data.timestamp.toDate().toLocaleString();
         row.appendChild(registeredCodeCell);
-        row.appendChild(userUidCell);
         row.appendChild(timestampCell);
         tbody.appendChild(row);
       });
@@ -58,6 +57,7 @@ function Dashboard() {
       alert("An error occurred while reading registered codes from the database.");
     }
   };
+  
 
   const fetchUserName = useCallback(async () => {
     try {
@@ -112,8 +112,8 @@ function Dashboard() {
                 setScannedData(result?.text);
                 handleScan(result?.text);
                 readRegisteredCodes();
+                console.log({scannedData});
               }
-
               if (!!error) {
                 console.info(error);
               }
@@ -121,7 +121,6 @@ function Dashboard() {
             style={{ width: '100%' }}
           />
         )}
-        <p>{scannedData}</p>
       </div>
     </div>
   );
